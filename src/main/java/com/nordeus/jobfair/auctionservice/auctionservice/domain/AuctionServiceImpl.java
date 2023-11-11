@@ -5,22 +5,30 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Au
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid.Bid;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.AuctionRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuctionServiceImpl implements AuctionService {
 
     private final AuctionNotifer auctionNotifer;
+    private final AuctionRepository auctionRepository;
 
     @Override
+    /**
+     * A method that returns all active auctions.
+     * @Returns A list of Auction objects.
+     */
     public Collection<Auction> getAllActive() {
-        return new LinkedList<>();
+        return this.auctionRepository.findByActiveTrue();
     }
 
     @Override
