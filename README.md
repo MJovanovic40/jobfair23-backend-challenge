@@ -36,7 +36,7 @@ For the time-based events, I am going to use the Spring Scheduler running on 1 s
 
 ## Requirements
   - [ ] Define the required entities and the database scheme for the feature.
-    - [ ] Design the database scheme.
+    - [x] Design the database scheme.
     - [ ] Implement the database model classes and repositories.
   - [ ] Implement the RESTful API for auctions.
     - [ ] Implement all required services.
