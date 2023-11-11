@@ -1,7 +1,7 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain.service;
 
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.Auction;
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.Bid;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid.Bid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

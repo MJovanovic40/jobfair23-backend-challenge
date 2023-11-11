@@ -1,7 +1,7 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.api;
 
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.AuctionService;
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.Auction;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

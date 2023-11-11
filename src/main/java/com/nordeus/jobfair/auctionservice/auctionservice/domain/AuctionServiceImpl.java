@@ -1,6 +1,10 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain;
 
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.*;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.AuctionId;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid.Bid;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain;
 
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.Auction;
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.AuctionId;
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.User;
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.UserId;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.AuctionId;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
 
 import java.util.Collection;
 
