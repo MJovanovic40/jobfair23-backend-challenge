@@ -15,13 +15,19 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Embeddable
 public class AuctionId implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="auction_id")
     private  UUID value;
+
+    public AuctionId() {
+        this.value = UUID.randomUUID();
+    }
+
+    public AuctionId(UUID value) {
+        this.value = value;
+    }
 
     @Override
     public final boolean equals(Object o) {

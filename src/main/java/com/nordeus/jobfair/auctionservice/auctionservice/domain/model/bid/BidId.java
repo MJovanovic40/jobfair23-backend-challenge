@@ -15,12 +15,18 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Embeddable
 public class BidId implements Serializable {
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="bid_id")
     private UUID value;
+
+    public BidId() {
+        this.value = UUID.randomUUID();
+    }
+
+    public BidId(UUID value) {
+        this.value = value;
+    }
 
     @Override
     public final boolean equals(Object o) {

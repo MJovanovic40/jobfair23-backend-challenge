@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.val;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serializable;
@@ -15,12 +16,19 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Embeddable
 public class UserId implements Serializable {
-    @GeneratedValue(strategy = GenerationType.UUID)
+
     @Column(name="user_id")
     private UUID value;
+
+    public UserId() {
+        this.value = UUID.randomUUID();
+    }
+
+    public UserId(UUID value) {
+        this.value = value;
+    }
 
     @Override
     public final boolean equals(Object o) {

@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name="users")
 public class User implements Serializable {
     @EmbeddedId
-    private UserId userId;
+    private UserId userId = new UserId();
 
     @Column(name="tokens", nullable = false)
     private int tokens = 50;

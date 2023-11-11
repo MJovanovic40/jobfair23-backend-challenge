@@ -16,10 +16,10 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name="players")
 public class Player {
     @EmbeddedId
-    @Column(name="playerId")
-    private PlayerId playerId;
+    private PlayerId playerId = new PlayerId();
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Auction> auctions = new LinkedHashSet<>();

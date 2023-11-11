@@ -16,7 +16,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="auctions")
@@ -26,6 +25,9 @@ public class Auction {
 
     @Column(name="bid_price", nullable = false)
     private int bidPrice;
+
+    @Column(name="active", nullable = false)
+    private boolean active;
 
     @Column(name="closes_at", nullable = false)
     private LocalDateTime closesAt;
