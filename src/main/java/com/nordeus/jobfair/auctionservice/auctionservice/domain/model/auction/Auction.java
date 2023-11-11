@@ -2,6 +2,7 @@ package com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction;
 
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid.Bid;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.player.Player;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,12 @@ public class Auction {
 
     @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Bid> bids = new LinkedHashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "users_in_auctions",
+            joinColumns = @JoinColumn(name = "auction_auction_id"),
+            inverseJoinColumns = @JoinColumn(name = "users_user_id"))
+    private Set<User> users = new LinkedHashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumns({
