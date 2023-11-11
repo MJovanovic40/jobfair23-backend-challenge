@@ -6,9 +6,11 @@ The service should provide a way for users (a.k.a. football managers) to partici
 
 10 auctions are created every minute, and they last 1 minute each. Auctions are extended if a user makes a bid within the last 5 seconds of the auction, and in such case, the auction is extended to 5 seconds.
 
-Users can first join the auction and see all available information about the auction, current bids and bidders, and the player on auction.
+Users can view all active auctions, and see the available information about the auction, current bids and bidders, and the player on auction.
 
-Users can bid on the auctions by spending their tokens, and after the auction closes, the highest bidder wins the auctioned player. The initial bid price is 1 token, and each bid increases the bid price by 1 token.
+Users can bid on the auctions by spending their tokens (and join the auction by making their first bid). 
+After the auction closes, the highest bidder wins the auctioned player. 
+The initial bid price is 1 token, and each bid increases the bid price by 1 token.
 
 Users should be notified if there are new bidders on the auction they have joined, if the auction closes, announcing the winner, and when new auctions are generated.
 
