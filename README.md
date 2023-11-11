@@ -29,6 +29,8 @@ Since this only a single service in a complex system, I am going to assume the f
 The REST API is going to be implemented in Spring Boot. 
 
 The data for this service will be stored using a MariaDB database, using Java Spring JPA to manipulate it.
+Since this service doesn't implement features for the Users and Players, they won't be included in the database, 
+but because their services are not available for this challenge, simple models will be implemented and loaded at runtime to simulate communication between services.
 
 This service will be secured using the Spring Security package, configured to authenticate requests using JWT.
 
@@ -43,6 +45,9 @@ For the time-based events, I am going to use the Spring Scheduler running on 1 s
     - [ ] Implement all required endpoints.
     - [ ] Implement the scheduler for time-based actions. 
   - [ ] Secure the service.
+    - [ ] Implement request rate limiting.
+    - [ ] Implement JWT authentication support.
+  - [ ] Configure logging.
   - [ ] Write the Dockerfile for easier deployment.
   - [ ] Generate the documentation.
 
