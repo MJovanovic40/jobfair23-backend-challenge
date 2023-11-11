@@ -13,7 +13,6 @@ Users can bid on the auctions by spending their tokens, and after the auction cl
 Users should be notified if there are new bidders on the auction they have joined, if the auction closes, announcing the winner, and when new auctions are generated.
 
 The service should be:
- - Fast - The service should utilize data caching to provide a more 
  - Secure - Protected against unauthorized / malicious uses,
  - Scalable - The service should be built in a way so that it can be horizontally scaled (it should be able to support more instances of itself being run simultaneously),
  - Easily deployable - Dockerfile should be created for ease of testing and deployment,
