@@ -39,7 +39,7 @@ For the time-based events, I am going to use the Spring Scheduler running on 1 s
   - [x] Define the required entities and the database scheme for the feature.
     - [x] Design the database scheme.
     - [x] Implement the database model classes and repositories.
-    - [ ] Implement seeds for the simulated entities.
+    - [x] Implement seeds for the simulated entities.
   - [ ] Implement the RESTful API for auctions.
     - [ ] Implement all required services.
     - [ ] Implement all required endpoints.
