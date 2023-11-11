@@ -7,13 +7,10 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.AuctionRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
