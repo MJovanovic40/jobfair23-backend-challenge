@@ -7,6 +7,7 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.AuctionRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
+import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.InvalidAuctionIdException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +20,23 @@ public class AuctionServiceImpl implements AuctionService {
     private final AuctionNotifer auctionNotifer;
     private final AuctionRepository auctionRepository;
 
-    @Override
     /**
-     * A method that returns all active auctions.
-     * @Returns A list of Auction objects.
+     * Returns all active auctions
+     * @return A list of Auction objects
      */
+    @Override
     public Collection<Auction> getAllActive() {
         return this.auctionRepository.findByActiveTrue();
     }
 
+    /**
+     * Returns an Auction object based on the provided AuctionId
+     * @param auctionId the AuctionId object containing the id of the auction
+     * @return the Auction object with the requested id
+     */
     @Override
     public Auction getAuction(AuctionId auctionId) {
-        return null;
+        return this.auctionRepository.findById(auctionId).orElseThrow(() -> new InvalidAuctionIdException(auctionId));
     }
 
     @Override

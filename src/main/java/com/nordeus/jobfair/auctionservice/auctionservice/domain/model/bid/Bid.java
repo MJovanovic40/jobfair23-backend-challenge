@@ -20,7 +20,7 @@ import java.util.Objects;
 public class Bid implements Serializable {
 
     @EmbeddedId
-    private BidId bidId;
+    private BidId bidId = new BidId();
 
     @Column(name="amount", nullable = false)
     private int amount;

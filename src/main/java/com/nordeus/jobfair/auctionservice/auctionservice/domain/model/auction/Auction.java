@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name="auctions")
 public class Auction {
     @EmbeddedId
-    private AuctionId auctionId;
+    private AuctionId auctionId = new AuctionId();
 
     @Column(name="bid_price", nullable = false)
     private int bidPrice;
