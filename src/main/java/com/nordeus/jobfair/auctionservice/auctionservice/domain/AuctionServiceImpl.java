@@ -3,17 +3,20 @@ package com.nordeus.jobfair.auctionservice.auctionservice.domain;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.AuctionId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid.Bid;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.player.Player;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.AuctionRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.BidRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.PlayerService;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.UserService;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.AuctionIsNotActiveException;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.BidDoesNotExistException;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.InvalidAuctionIdException;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.UserAlreadyInAuctionException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,6 +31,13 @@ public class AuctionServiceImpl implements AuctionService {
 
     private final UserService userService;
     private final AuctionNotifer auctionNotifer;
+    private final PlayerService playerService;
+
+    @Value("${auction.length}")
+    private int auctionLength;
+
+    @Value("${auction.initialBidPrice}")
+    private int initialBidPrice;
 
     /**
      * Returns all active auctions
@@ -123,5 +133,21 @@ public class AuctionServiceImpl implements AuctionService {
         this.auctionRepository.save(auction);
 
         auctionNotifer.bidPlaced(bid);
+    }
+
+    /**
+     * Creates a new Auction.
+     */
+    @Override
+    public void createAuction() {
+        Player auctionedPlayer = this.playerService.getRandomPlayer(); // This is supposed to simulate a service call to get the actual player that is supposed to be on auction
+
+        Auction auction = new Auction();
+        auction.setClosesAt(LocalDateTime.now().plusMinutes(auctionLength));
+        auction.setBidPrice(initialBidPrice);
+        auction.setActive(true);
+        auction.setPlayer(auctionedPlayer);
+
+        this.auctionRepository.save(auction);
     }
 }

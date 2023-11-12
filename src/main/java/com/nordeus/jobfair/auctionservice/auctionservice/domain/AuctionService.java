@@ -18,4 +18,6 @@ public interface AuctionService {
     void join(Auction auctionId, User user);
 
     void bid(AuctionId auctionId, UserId userId);
+
+    void createAuction();
 }

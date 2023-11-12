@@ -9,6 +9,7 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserI
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.AuctionRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.BidRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.PlayerService;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.UserService;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.AuctionIsNotActiveException;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.InvalidAuctionIdException;
@@ -49,13 +50,15 @@ class AuctionServiceTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private PlayerService playerService;
+
     private AuctionService auctionService;
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        auctionService = spy(new AuctionServiceImpl(auctionRepository, bidRepository, userService, auctionNotifer));
-        //this.auctionService = new AuctionServiceImpl(auctionRepository, bidRepository, userService, auctionNotifer);
+        auctionService = spy(new AuctionServiceImpl(auctionRepository, bidRepository, userService, auctionNotifer, playerService));
     }
 
     @Nested
@@ -218,5 +221,18 @@ class AuctionServiceTest {
 
         }
 
+    }
+
+    @Nested
+    class CreateAuctionTests {
+        @Test
+        void happyPath() {
+            when(playerService.getRandomPlayer()).thenReturn(new Player());
+
+            auctionService.createAuction();
+
+            verify(playerService).getRandomPlayer();
+            verify(auctionRepository).save(any(Auction.class));
+        }
     }
 }
