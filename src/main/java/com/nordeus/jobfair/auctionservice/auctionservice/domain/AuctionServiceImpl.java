@@ -150,4 +150,20 @@ public class AuctionServiceImpl implements AuctionService {
 
         this.auctionRepository.save(auction);
     }
+
+    /**
+     * Closes the Auction with the provided AuctionId and notifies the winner
+     *
+     * @param auctionId AuctionId object of the auction to close
+     */
+    @Override
+    public void closeAuction(AuctionId auctionId) {
+        Auction auction = this.getActiveAuction(auctionId);
+
+        auction.setActive(false);
+
+        this.auctionRepository.save(auction);
+
+        this.auctionNotifer.auctionFinished(auction);
+    }
 }

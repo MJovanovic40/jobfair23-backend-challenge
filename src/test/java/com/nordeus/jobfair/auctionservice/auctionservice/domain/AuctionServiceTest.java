@@ -235,4 +235,23 @@ class AuctionServiceTest {
             verify(auctionRepository).save(any(Auction.class));
         }
     }
+
+    @Nested
+    class CloseAuctionTest {
+        @Test
+        void happyPath() {
+            Auction auction = new Auction();
+            auction.setActive(true);
+            auction.setClosesAt(LocalDateTime.now());
+            auction.setPlayer(new Player());
+
+            doReturn(auction).when(auctionService).getActiveAuction(any(AuctionId.class));
+
+            auctionService.closeAuction(auction.getAuctionId());
+
+            verify(auctionService).getActiveAuction(any(AuctionId.class));
+            verify(auctionRepository).save(eq(auction));
+            verify(auctionNotifer).auctionFinished(eq(auction));
+        }
+    }
 }
