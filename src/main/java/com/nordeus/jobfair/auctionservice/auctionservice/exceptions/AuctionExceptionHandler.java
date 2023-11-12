@@ -1,5 +1,6 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.exceptions;
 
+import com.nordeus.jobfair.auctionservice.auctionservice.api.HttpResponse;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,57 +14,57 @@ public class AuctionExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse globalErrorHandler(Throwable e) {
-        return new ErrorResponse("Something went wrong. Please try again.");
+    public HttpResponse<Object> globalErrorHandler(Throwable e) {
+        return new HttpResponse<>(false, null, "Something went wrong. Please try again.");
     }
 
     @ResponseBody
     @ExceptionHandler(InvalidAuctionIdException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse invalidAuctionIdHandler(InvalidAuctionIdException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> invalidAuctionIdHandler(InvalidAuctionIdException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(InvalidUserIdException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse invalidUserIdHandler(InvalidUserIdException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> invalidUserIdHandler(InvalidUserIdException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(InvalidTokenAmountException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse invalidTokenAmountHandler(InvalidTokenAmountException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> invalidTokenAmountHandler(InvalidTokenAmountException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(InsufficientTokensException.class)
     @ResponseStatus(HttpStatus.PAYMENT_REQUIRED)
-    public ErrorResponse insufficientTokensHandler(InsufficientTokensException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> insufficientTokensHandler(InsufficientTokensException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(BidDoesNotExistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse bidDoesNotExistHandler(BidDoesNotExistException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> bidDoesNotExistHandler(BidDoesNotExistException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(UserAlreadyInAuctionException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse bidDoesNotExistHandler(UserAlreadyInAuctionException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> bidDoesNotExistHandler(UserAlreadyInAuctionException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(AuctionIsNotActiveException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse auctionIsNotActiveHandler(AuctionIsNotActiveException e) {
-        return new ErrorResponse(e.getMessage());
+    public HttpResponse<Object> auctionIsNotActiveHandler(AuctionIsNotActiveException e) {
+        return new HttpResponse<>(false, null, e.getMessage());
     }
 
 }
