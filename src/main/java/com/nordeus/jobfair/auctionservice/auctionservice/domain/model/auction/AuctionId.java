@@ -19,7 +19,7 @@ import java.util.UUID;
 public class AuctionId implements Serializable {
 
     @Column(name="auction_id")
-    private  UUID value;
+    private UUID value;
 
     public AuctionId() {
         this.value = UUID.randomUUID();

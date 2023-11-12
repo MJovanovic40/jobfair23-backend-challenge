@@ -3,6 +3,7 @@ package com.nordeus.jobfair.auctionservice.auctionservice.domain;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.AuctionId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.player.Player;
+import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.repository.AuctionRepository;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionNotifer;
 import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.InvalidAuctionIdException;
@@ -18,13 +19,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 class AuctionServiceTest {
@@ -76,6 +78,55 @@ class AuctionServiceTest {
 
             assertThrows(InvalidAuctionIdException.class, () -> auctionService.getAuction(new AuctionId()));
             verify(auctionRepository).findById(any(AuctionId.class));
+        }
+    }
+
+    @Nested
+    class JoinAuctionTests {
+        @Test
+        void happyPath() {
+            User user = new User();
+            Player player = new Player();
+
+            Auction auction = new Auction();
+            auction.setActive(true);
+            auction.setClosesAt(LocalDateTime.now().plusMinutes(1));
+            auction.setPlayer(player);
+
+            AuctionId auctionId = auction.getAuctionId();
+
+            when(auctionRepository.findById(any(AuctionId.class))).thenReturn(Optional.of(auction));
+
+            auctionService.join(auctionId, user);
+
+            verify(auctionRepository).findById(auctionId);
+            verify(auctionRepository).save(auction);
+        }
+
+        @Test
+        void invalidAuctionIdTest() {
+            when(auctionRepository.findById(any(AuctionId.class))).thenThrow(InvalidAuctionIdException.class);
+            assertThrows(InvalidAuctionIdException.class, () -> auctionService.join(new AuctionId(), new User()));
+        }
+
+        @Test
+        void userAlreadyInAuctionTest() {
+            User user = new User();
+            Player player = new Player();
+
+            Auction auction = new Auction();
+            auction.setActive(true);
+            auction.setClosesAt(LocalDateTime.now().plusMinutes(1));
+            auction.setPlayer(player);
+            auction.getUsers().add(user);
+
+            AuctionId auctionId = auction.getAuctionId();
+
+            when(auctionRepository.findById(any(AuctionId.class))).thenReturn(Optional.of(auction));
+
+            auctionService.join(auctionId, user);
+
+            verify(auctionRepository).findById(auctionId);
         }
     }
 

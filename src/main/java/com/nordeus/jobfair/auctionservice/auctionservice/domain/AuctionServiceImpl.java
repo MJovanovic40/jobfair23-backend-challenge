@@ -22,6 +22,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     /**
      * Returns all active auctions
+     *
      * @return A list of Auction objects
      */
     @Override
@@ -31,6 +32,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     /**
      * Returns an Auction object based on the provided AuctionId
+     *
      * @param auctionId the AuctionId object containing the id of the auction
      * @return the Auction object with the requested id
      */
@@ -39,9 +41,18 @@ public class AuctionServiceImpl implements AuctionService {
         return this.auctionRepository.findById(auctionId).orElseThrow(() -> new InvalidAuctionIdException(auctionId));
     }
 
+    /**
+     * Adds the user to the auction
+     *
+     * @param auctionId AuctionId object of the auction that users wants to join
+     * @param user      User object that joins the auction
+     */
     @Override
     public void join(AuctionId auctionId, User user) {
-
+        Auction auction = this.auctionRepository.findById(auctionId).orElseThrow(() -> new InvalidAuctionIdException(auctionId));
+        if (auction.getUsers().contains(user)) return; // Prevent the user from joining the auction more than once
+        auction.getUsers().add(user);
+        this.auctionRepository.save(auction);
     }
 
     @Override
