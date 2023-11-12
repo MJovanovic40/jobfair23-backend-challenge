@@ -17,7 +17,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
@@ -64,7 +65,7 @@ class UserServiceTest {
             int tokens = 5;
             User user = new User();
 
-            userService.addTokens(user, tokens);
+            userService.addTokens(user.getUserId(), tokens);
 
             verify(userRepository).save(user);
         }
@@ -74,7 +75,18 @@ class UserServiceTest {
             int tokens = -5;
             User user = new User();
 
-            assertThrows(InvalidTokenAmountException.class, () -> userService.addTokens(user, tokens));
+            assertThrows(InvalidTokenAmountException.class, () -> userService.addTokens(user.getUserId(), tokens));
+        }
+
+        @Test
+        void invalidUserId() {
+            int tokens = 5;
+            when(userRepository.findById(any(UserId.class))).thenThrow(InvalidUserIdException.class);
+
+            User user = new User();
+
+            assertThrows(InvalidUserIdException.class, () -> userService.addTokens(user.getUserId(), tokens));
+            verify(userRepository).findById(eq(user.getUserId()));
         }
     }
 
@@ -85,7 +97,7 @@ class UserServiceTest {
             int tokens = 5;
             User user = new User();
 
-            userService.removeTokens(user, tokens);
+            userService.removeTokens(user.getUserId(), tokens);
 
             verify(userRepository).save(user);
         }
@@ -95,7 +107,7 @@ class UserServiceTest {
             int tokens = -5;
             User user = new User();
 
-            assertThrows(InvalidTokenAmountException.class, () -> userService.removeTokens(user, tokens));
+            assertThrows(InvalidTokenAmountException.class, () -> userService.removeTokens(user.getUserId(), tokens));
         }
 
         @Test
@@ -103,7 +115,18 @@ class UserServiceTest {
             int tokens = 1000;
             User user = new User();
 
-            assertThrows(InsufficientTokensException.class, () -> userService.removeTokens(user, tokens));
+            assertThrows(InsufficientTokensException.class, () -> userService.removeTokens(user.getUserId(), tokens));
+        }
+
+        @Test
+        void invalidUserId() {
+            int tokens = 5;
+            when(userRepository.findById(any(UserId.class))).thenThrow(InvalidUserIdException.class);
+
+            User user = new User();
+
+            assertThrows(InvalidUserIdException.class, () -> userService.removeTokens(user.getUserId(), tokens));
+            verify(userRepository).findById(eq(user.getUserId()));
         }
     }
 }

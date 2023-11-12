@@ -13,7 +13,9 @@ public interface AuctionService {
 
     Auction getAuction(AuctionId auctionId);
 
-    void join(AuctionId auctionId, User user);
+    Auction getActiveAuction(AuctionId auctionId);
+
+    void join(Auction auctionId, User user);
 
     void bid(AuctionId auctionId, UserId userId);
 }

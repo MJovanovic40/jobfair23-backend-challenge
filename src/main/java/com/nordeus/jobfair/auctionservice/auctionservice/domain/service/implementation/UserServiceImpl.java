@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Returns the User object with the provided id
+     *
      * @param userId UserId object
      * @return User object with the provided id
      */
@@ -28,15 +29,18 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Adds the provided amount of tokens to the User object
-     * @param user User object where to add the tokens
+     *
+     * @param userId User object where to add the tokens
      * @param tokens amount of tokens to add
      * @throws InvalidTokenAmountException if token amount is less than 0
      */
     @Override
-    public void addTokens(User user, int tokens) {
-        if(tokens < 0) {
+    public void addTokens(UserId userId, int tokens) {
+        if (tokens < 0) {
             throw new InvalidTokenAmountException(tokens);
         }
+
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
 
         user.setTokens(user.getTokens() + tokens);
         this.userRepository.save(user);
@@ -44,17 +48,21 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Subtracts the user's tokens by the provided amount.
-     * @param user User object from whom to subtract the tokens
+     *
+     * @param userId User object from whom to subtract the tokens
      * @param tokens amount of tokens to subtract
      * @throws InvalidTokenAmountException if token amount is less than 0
      * @throws InsufficientTokensException if the user doesn't have enough tokens for the transaction
      */
     @Override
-    public void removeTokens(User user, int tokens) {
-        if(tokens < 0) {
+    public void removeTokens(UserId userId, int tokens) {
+        if (tokens < 0) {
             throw new InvalidTokenAmountException(tokens);
         }
-        if(tokens > user.getTokens()) {
+
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
+
+        if (tokens > user.getTokens()) {
             throw new InsufficientTokensException(user, tokens);
         }
 

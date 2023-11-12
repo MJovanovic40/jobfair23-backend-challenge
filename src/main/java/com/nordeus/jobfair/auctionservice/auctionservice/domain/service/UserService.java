@@ -5,6 +5,8 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserI
 
 public interface UserService {
     User getUserById(UserId userId);
-    void addTokens(User user, int tokens);
-    void removeTokens(User user, int tokens);
+
+    void addTokens(UserId userId, int tokens);
+
+    void removeTokens(UserId userId, int tokens);
 }

@@ -45,4 +45,25 @@ public class AuctionExceptionHandler {
         return new ErrorResponse(e.getMessage());
     }
 
+    @ResponseBody
+    @ExceptionHandler(BidDoesNotExistException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse bidDoesNotExistHandler(BidDoesNotExistException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(UserAlreadyInAuctionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse bidDoesNotExistHandler(UserAlreadyInAuctionException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(AuctionIsNotActiveException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse auctionIsNotActiveHandler(AuctionIsNotActiveException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
 }
