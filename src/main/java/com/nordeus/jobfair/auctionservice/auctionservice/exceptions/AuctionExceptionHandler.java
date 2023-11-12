@@ -1,6 +1,6 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.exceptions;
 
-import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.InvalidAuctionIdException;
+import com.nordeus.jobfair.auctionservice.auctionservice.exceptions.throwable.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,4 +23,26 @@ public class AuctionExceptionHandler {
     public ErrorResponse invalidAuctionIdHandler(InvalidAuctionIdException e) {
         return new ErrorResponse(e.getMessage());
     }
+
+    @ResponseBody
+    @ExceptionHandler(InvalidUserIdException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse invalidUserIdHandler(InvalidUserIdException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(InvalidTokenAmountException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse invalidTokenAmountHandler(InvalidTokenAmountException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(InsufficientTokensException.class)
+    @ResponseStatus(HttpStatus.PAYMENT_REQUIRED)
+    public ErrorResponse insufficientTokensHandler(InsufficientTokensException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
 }
