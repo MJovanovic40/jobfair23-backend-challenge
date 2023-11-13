@@ -61,7 +61,7 @@ For the time-based events, I am going to use the Spring Scheduler running on 1 s
     - [x] Implement all required endpoints.
     - [x] Implement the scheduler for time-based actions.
 - [ ] Secure the service.
-    - [ ] Implement request rate limiting.
+    - [x] Implement request rate limiting.
     - [ ] Implement JWT authentication support.
 - [ ] Configure logging.
 - [ ] Write the Dockerfile for easier deployment.
