@@ -15,13 +15,12 @@ public class UserSeeder {
     @Bean
     CommandLineRunner seedUsers() {
         return args -> {
-            if(this.userRepository.count() != 0) return;
+            if (this.userRepository.count() != 0) return;
 
-            for(int i = 0; i < 10; i++) {
-                /*User user = new User();
-                user.setUserId(new User());*/
+            for (int i = 0; i < 10; i++) {
                 this.userRepository.save(new User());
             }
+            System.out.println(this.userRepository.findAll().get(0).getUserId().getValue());
         };
     }
 }
