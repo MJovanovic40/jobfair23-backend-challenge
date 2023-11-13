@@ -36,7 +36,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Value("${auction.length}")
     private int auctionLength;
 
-    @Value("${auction.initialBidPrice}")
+    @Value("${auction.initial-bid-price}")
     private int initialBidPrice;
 
     /**

@@ -21,7 +21,7 @@ public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
     private final AuctionService auctionService;
     private final AuctionNotifer auctionNotifer;
 
-    @Value("${auction.numberOfAuctionsCreated}")
+    @Value("${auction.number-of-auctions-created}")
     private int numberOfAuctionsCreated;
 
     @Override
