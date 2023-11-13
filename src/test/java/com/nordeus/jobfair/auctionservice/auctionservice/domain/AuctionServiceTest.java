@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -229,10 +228,11 @@ class AuctionServiceTest {
         void happyPath() {
             when(playerService.getRandomPlayer()).thenReturn(new Player());
 
-            auctionService.createAuction();
+            Auction auction = auctionService.createAuction();
 
             verify(playerService).getRandomPlayer();
             verify(auctionRepository).save(any(Auction.class));
+            assertInstanceOf(Auction.class, auction);
         }
     }
 

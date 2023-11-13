@@ -139,7 +139,7 @@ public class AuctionServiceImpl implements AuctionService {
      * Creates a new Auction.
      */
     @Override
-    public void createAuction() {
+    public Auction createAuction() {
         Player auctionedPlayer = this.playerService.getRandomPlayer(); // This is supposed to simulate a service call to get the actual player that is supposed to be on auction
 
         Auction auction = new Auction();
@@ -149,6 +149,7 @@ public class AuctionServiceImpl implements AuctionService {
         auction.setPlayer(auctionedPlayer);
 
         this.auctionRepository.save(auction);
+        return auction;
     }
 
     /**

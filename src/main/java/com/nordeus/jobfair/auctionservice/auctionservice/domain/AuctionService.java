@@ -19,7 +19,7 @@ public interface AuctionService {
 
     void bid(AuctionId auctionId, UserId userId);
 
-    void createAuction();
+    Auction createAuction();
 
     void closeAuction(AuctionId auctionId);
 }
