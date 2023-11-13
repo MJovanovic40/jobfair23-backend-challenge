@@ -1,11 +1,14 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.io.Serializable;
@@ -16,19 +19,20 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="bids")
+@Table(name = "bids")
 public class Bid implements Serializable {
 
     @EmbeddedId
     private BidId bidId = new BidId();
 
-    @Column(name="amount", nullable = false)
+    @Column(name = "amount", nullable = false)
     private int amount;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumns({
             @JoinColumn(name = "AUCTION_AUCTION_ID", referencedColumnName = "AUCTION_ID")
     })
+    @JsonIgnore
     private Auction auction;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
@@ -37,13 +41,16 @@ public class Bid implements Serializable {
     })
     private User user;
 
-    @Column(name="created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name="updated_at", nullable = false)
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
-    @Override    public final boolean equals(Object o) {
+    @Override
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();

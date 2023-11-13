@@ -1,6 +1,7 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain.model.player;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,12 +17,13 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="players")
+@Table(name = "players")
 public class Player {
     @EmbeddedId
     private PlayerId playerId = new PlayerId();
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Auction> auctions = new LinkedHashSet<>();
 
     @Override

@@ -1,5 +1,6 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.bid.Bid;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,15 +17,16 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity()
-@Table(name="users")
+@Table(name = "users")
 public class User implements Serializable {
     @EmbeddedId
     private UserId userId = new UserId();
 
-    @Column(name="tokens", nullable = false)
+    @Column(name = "tokens", nullable = false)
     private int tokens = 50;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Bid> bids = new LinkedHashSet<>();
 
     @Override

@@ -6,8 +6,9 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDateTime;
@@ -19,18 +20,18 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="auctions")
+@Table(name = "auctions")
 public class Auction {
     @EmbeddedId
     private AuctionId auctionId = new AuctionId();
 
-    @Column(name="bid_price", nullable = false)
+    @Column(name = "bid_price", nullable = false)
     private int bidPrice;
 
-    @Column(name="active", nullable = false)
+    @Column(name = "active", nullable = false)
     private boolean active;
 
-    @Column(name="closes_at", nullable = false)
+    @Column(name = "closes_at", nullable = false)
     private LocalDateTime closesAt;
 
     @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,11 +49,13 @@ public class Auction {
     })
     private Player player;
 
-    @Column(name="created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name="updated_at", nullable = false)
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @Override
     public final boolean equals(Object o) {
