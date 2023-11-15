@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/auctions")
+@RequestMapping(path = "/api/v1/auctions")
 public class HttpController {
 
     private AuctionService auctionService;
