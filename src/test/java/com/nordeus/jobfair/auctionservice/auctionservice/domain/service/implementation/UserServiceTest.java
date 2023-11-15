@@ -65,9 +65,12 @@ class UserServiceTest {
             int tokens = 5;
             User user = new User();
 
+            when(userRepository.findById(any(UserId.class))).thenReturn(Optional.of(user));
+
             userService.addTokens(user.getUserId(), tokens);
 
             verify(userRepository).save(user);
+            verify(userRepository).findById(user.getUserId());
         }
 
         @Test
@@ -97,9 +100,12 @@ class UserServiceTest {
             int tokens = 5;
             User user = new User();
 
+            when(userRepository.findById(any(UserId.class))).thenReturn(Optional.of(user));
+
             userService.removeTokens(user.getUserId(), tokens);
 
             verify(userRepository).save(user);
+            verify(userRepository).findById(user.getUserId());
         }
 
         @Test
@@ -115,7 +121,11 @@ class UserServiceTest {
             int tokens = 1000;
             User user = new User();
 
+            when(userRepository.findById(any(UserId.class))).thenReturn(Optional.of(user));
+
             assertThrows(InsufficientTokensException.class, () -> userService.removeTokens(user.getUserId(), tokens));
+
+            verify(userRepository).findById(user.getUserId());
         }
 
         @Test
