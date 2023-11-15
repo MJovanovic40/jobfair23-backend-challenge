@@ -1,10 +1,10 @@
 package com.nordeus.jobfair.auctionservice.auctionservice.api;
 
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.AuctionService;
-import com.nordeus.jobfair.auctionservice.auctionservice.domain.dto.request.BidRequestDto;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.Auction;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.auction.AuctionId;
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.model.user.UserId;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +29,9 @@ public class HttpController {
     }
 
     @PostMapping(value = "/{auctionId}/bid")
-    public HttpResponse<Object> bid(@PathVariable String auctionId, @RequestBody BidRequestDto body) {
-        this.auctionService.bid(new AuctionId(UUID.fromString(auctionId)), new UserId(UUID.fromString(body.getUserId())));
+    public HttpResponse<Object> bid(@PathVariable String auctionId, HttpServletRequest request) {
+        String userId = request.getAttribute("userId").toString(); // From jwt filter
+        this.auctionService.bid(new AuctionId(UUID.fromString(auctionId)), new UserId(UUID.fromString(userId)));
         return new HttpResponse<>(true, null, "Bid successful.");
     }
 }

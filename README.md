@@ -46,9 +46,13 @@ Since this service doesn't implement features for the Users and Players, they wo
 but because their services are not available for this challenge, simple models will be implemented and loaded at runtime
 to simulate communication between services.
 
-This service will be secured using the Spring Security package, configured to authenticate requests using JWT.
+This service will be secured using JWT and an IP rate-limiting system.
+Although the best practice in the real-world scenario for this kind of service would be to use tokens signed with an
+asymmetric algorithm like RSA, and using a KMS (Key Management System) for distributing public keys, with token refresh,
+the scope of this challenge isn't suitable for such a setup, and the service will use the HS256 algorithm signed with a
+secret key instead.
 
-For the time-based events, I am going to use the Spring Scheduler running on 1 second intervals.
+For the time-based events, I am going to use the Spring Scheduler.
 
 ## Requirements
 
@@ -60,9 +64,9 @@ For the time-based events, I am going to use the Spring Scheduler running on 1 s
     - [x] Implement all required services.
     - [x] Implement all required endpoints.
     - [x] Implement the scheduler for time-based actions.
-- [ ] Secure the service.
+- [x] Secure the service.
     - [x] Implement request rate limiting.
-    - [ ] Implement JWT authentication support.
+    - [x] Implement JWT authentication support.
 - [ ] Configure logging.
 - [ ] Write the Dockerfile for easier deployment.
 - [ ] Generate the documentation.
