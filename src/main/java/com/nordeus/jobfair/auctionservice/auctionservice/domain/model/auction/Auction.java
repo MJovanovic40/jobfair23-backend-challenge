@@ -12,9 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -34,8 +32,8 @@ public class Auction {
     @Column(name = "closes_at", nullable = false)
     private LocalDateTime closesAt;
 
-    @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Bid> bids = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "auction", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Bid> bids = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "users_in_auctions",
@@ -71,5 +69,11 @@ public class Auction {
     @Override
     public final int hashCode() {
         return Objects.hash(auctionId);
+    }
+
+    public String toString() {
+        return "Id: " + this.getAuctionId().getValue().toString() +
+                ", Closes at: " + this.closesAt.toString() +
+                ", Player: " + this.player.getPlayerId().getValue().toString();
     }
 }
