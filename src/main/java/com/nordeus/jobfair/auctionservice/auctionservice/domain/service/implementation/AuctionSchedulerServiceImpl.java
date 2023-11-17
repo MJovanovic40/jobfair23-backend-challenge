@@ -6,6 +6,7 @@ import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionN
 import com.nordeus.jobfair.auctionservice.auctionservice.domain.service.AuctionSchedulerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Profile("scheduler")
 public class AuctionSchedulerServiceImpl implements AuctionSchedulerService {
 
     private final AuctionService auctionService;
