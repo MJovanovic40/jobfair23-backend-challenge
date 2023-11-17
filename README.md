@@ -69,7 +69,7 @@ For the time-based events, I am going to use the Spring Scheduler.
     - [x] Implement JWT authentication support.
 - [x] Configure logging.
 - [x] Write the Dockerfile for easier deployment.
-- [ ] Generate the documentation.
+- [x] Generate the documentation.
 
 ## Documentation
 
