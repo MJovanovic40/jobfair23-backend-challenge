@@ -42,9 +42,8 @@ Since this only a single service in a complex system, I am going to assume the f
 The REST API is going to be implemented in Spring Boot.
 
 The data for this service will be stored using a MariaDB database, using Java Spring JPA to manipulate it.
-Since this service doesn't implement features for the Users and Players, they won't be included in the database,
-but because their services are not available for this challenge, simple models will be implemented and loaded at runtime
-to simulate communication between services.
+Since this service doesn't implement features for Users and Players, and because their services are not available for
+this challenge, simplified models will be created initially to simulate communication between services.
 
 This service will be secured using JWT and an IP rate-limiting system.
 Although the best practice in the real-world scenario for this kind of service would be to use tokens signed with an
@@ -52,7 +51,7 @@ asymmetric algorithm like RSA, and using a KMS (Key Management System) for distr
 the scope of this challenge isn't suitable for such a setup, and the service will use the HS256 algorithm signed with a
 secret key instead.
 
-For the time-based events, I am going to use the Spring Scheduler.
+For the time-based events, the service will implement the Scheduler.
 
 ## Requirements
 
@@ -73,6 +72,37 @@ For the time-based events, I am going to use the Spring Scheduler.
 
 ## Documentation
 
-Code documentation will be available via javadoc, API documentation will be available via SwaggerUI (only in development
-mode),
-and all other files (images, schemes, etc.) will be available in the docs folder.
+Code documentation is available via javadoc (`mvn javadoc:javadoc`), API documentation is available via SwaggerUI (
+please reference the `application.properties` file to disable it in production),
+and all other files (images, schemes, etc.) will be available in the `docs/` folder.
+
+## Running the service
+
+The service requires some environment variables in order to run:
+
+- `PROFILE` (scheduler or noscheduler) - Scheduler profile runs the scheduled events for creating and ending auctions
+  alongside everything else, which is the default option.
+- `DATABASE_HOST` - The host of the database.
+- `DATABASE_NAME` - The name of the database.
+- `DATABASE_USERNAME` - The username of the user that will have permission to modify the database.
+- `DATABASE_PASSWORD` - The password of the user.
+- `JWT_SECRET` - Secret key used to sign JWT tokens.
+- `PORT` - The port that the application runs on.
+
+The service can be started in two ways:
+
+### 1. Maven
+
+Provide all the environment variables and run `mvn spring-boot:run` to run the application.
+
+### 2. Docker
+
+1. Rename/Copy the `.env.example` to `.env` and modify `<database_username>`, `<database_password>`, and `<jwt_secret>`
+   accordingly.
+   Please note that if you want to run the service with docker compose (recommended), you need to set
+   the `DATABASE_HOST` to "mariadb" (or the name of the database service inside the `docker-compose.yml` file).
+2. Run `docker compose up` and the service will start on the provided port.
+
+Optionally you can build the Docker container and run your MariaDB instance independently.
+In that case build the container from the provided Dockerfile and run it with the above-mentioned environmental
+variables.
