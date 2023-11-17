@@ -24,7 +24,7 @@ public class UserSeeder {
             for (int i = 0; i < 10; i++) {
                 User user = new User();
                 this.userRepository.save(user);
-                log.debug("Created a new user with id: " + user.getUserId().getValue().toString() + " token: " + jwtUtils.createUserToken(user.getUserId()));
+                log.info("Created a new user with id: " + user.getUserId().getValue().toString() + " token: " + jwtUtils.createUserToken(user.getUserId()));
             }
         };
     }
