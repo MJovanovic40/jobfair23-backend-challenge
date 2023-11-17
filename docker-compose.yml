@@ -1,0 +1,41 @@
+version: '3.2'
+
+services:
+  auction-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auction-service
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - auction-service-network
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    env_file:
+      - .env
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: true
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USERNAME}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "3306:3306"
+    networks:
+      - auction-service-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 1m
+      timeout: 5s
+      retries: 3
+
+networks:
+  auction-service-network:
