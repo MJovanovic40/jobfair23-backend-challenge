@@ -24,7 +24,7 @@ public class JwtUtils {
      */
     public String createUserToken(UserId userId) {
         SecretKey key = this.getSigningKey();
-        return Jwts.builder().claim("userId", userId).signWith(key).compact();
+        return Jwts.builder().claim("userId", userId.getValue().toString()).signWith(key).compact();
     }
 
     /**

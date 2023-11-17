@@ -29,7 +29,7 @@ public class AuctionNotifierLogger implements AuctionNotifer {
                 }
             });
             Bid winningBid = bids.get(bids.size() - 1);
-            winnerMessage = "The winner is: " + winningBid.getUser().getUserId().getValue().toString() + " who bid " + winningBid.getAmount() + " tokens.";
+            winnerMessage = "The winner is: " + winningBid.getUser().getUserId().getValue().toString() + " who bid " + winningBid.getAmount() + " token(s).";
         }
 
         log.info("Auction with id: " + auction.getAuctionId().getValue().toString() + " finished. " + winnerMessage);
@@ -37,7 +37,7 @@ public class AuctionNotifierLogger implements AuctionNotifer {
 
     @Override
     public void bidPlaced(Bid bid) {
-        log.info("Bid placed by user: " + bid.getUser().getUserId().getValue().toString() + ". Amount: " + bid.getAmount() + " tokens.");
+        log.info("Bid placed by user: " + bid.getUser().getUserId().getValue().toString() + ". Amount: " + bid.getAmount() + " token(s).");
     }
 
     @Override
