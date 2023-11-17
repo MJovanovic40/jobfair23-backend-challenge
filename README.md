@@ -1,5 +1,8 @@
 # Nordeus Backend challenge
 
+**IMPORTANT**: When the application starts, it creates the dummy users and logs their JWT tokens to the console.
+The tokens are essential for using the application since every request requires authentication.
+
 ## The Task
 
 The task is to create a RESTful backend service for the Auctions feature for the Top Eleven in Spring Boot, Java.
